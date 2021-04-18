@@ -1,6 +1,15 @@
 from bs4 import BeautifulSoup
 import csv
 import time
+import requests
+
+# getFilefromTN Server
+def getURLContents():
+    url = r"https://stopcorona.tn.gov.in/beds.php"
+    r  = requests.get(url)
+    data = r.text
+    return data
+
 
 #get the row as a List
 def rowgetDataText(tr, coltag='td'): # td (data) or th (header)       
@@ -14,8 +23,8 @@ def getFileName():
     return file_name
 
 
-
-bs = BeautifulSoup(open('beds.html', encoding="utf8"), 'html.parser')
+page_data = getURLContents()
+bs = BeautifulSoup(page_data, 'html.parser')
 
 #print(bs.prettify())
 
